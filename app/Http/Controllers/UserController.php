@@ -16,48 +16,48 @@ class UserController extends Controller
     //     return view('user', ['data' => $user]);
     // }
 
-    public function tambah()
-    {
-        return view('user_tambah');
-    }
+    // public function tambah()
+    // {
+    //     return view('user_tambah');
+    // }
 
-    public function tambah_simpan(Request $request)
-    {
-        UserModel::create([
-            'username' => $request->username,
-            'nama' => $request->nama,
-            'password' => Hash::make($request->password),
-            'level_id' => $request->level_id
-        ]);
+    // public function tambah_simpan(Request $request)
+    // {
+    //     UserModel::create([
+    //         'username' => $request->username,
+    //         'nama' => $request->nama,
+    //         'password' => Hash::make($request->password),
+    //         'level_id' => $request->level_id
+    //     ]);
 
-        return redirect('/user');
-    }
+    //     return redirect('/user');
+    // }
 
-    public function ubah($id)
-    {
-        $user = UserModel::find($id);
-        return view('user_ubah', ['data' => $user]);
-    }
+    // public function ubah($id)
+    // {
+    //     $user = UserModel::find($id);
+    //     return view('user_ubah', ['data' => $user]);
+    // }
 
-    public function ubah_simpan($id, Request $request)
-    {
-        $user = UserModel::find($id);
-        $user->username = $request->username;
-        $user->nama = $request->nama;
-        $user->password = Hash::make($request->password);
-        $user->level_id = $request->level_id;
-        $user->save();
+    // public function ubah_simpan($id, Request $request)
+    // {
+    //     $user = UserModel::find($id);
+    //     $user->username = $request->username;
+    //     $user->nama = $request->nama;
+    //     $user->password = Hash::make($request->password);
+    //     $user->level_id = $request->level_id;
+    //     $user->save();
 
-        return redirect('/user');
-    }
+    //     return redirect('/user');
+    // }
 
-    public function hapus($id)
-    {
-        $user = UserModel::find($id);
-        $user->delete();
+    // public function hapus($id)
+    // {
+    //     $user = UserModel::find($id);
+    //     $user->delete();
 
-        return redirect('/user');
-    }
+    //     return redirect('/user');
+    // }
 
 
     //Menampilkan halaman awal user
@@ -91,7 +91,7 @@ class UserController extends Controller
         }
 
         return DataTables::of($users)
-            ->addIndexColumn() // Menambahkan kolom index / no urut (default: DT_RowIndex)
+            ->addIndexColumn() 
             ->addColumn('aksi', function ($user) {
                 $btn='
                     <a href="' . url('/user/' . $user->user_id) . '" class="btn btn-info btn-sm">Detail</a>
