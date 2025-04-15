@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\LevelModel;
 use App\Models\UserModel;
-use illuminate\Http\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -72,7 +72,7 @@ class UserController extends Controller
             'title' => 'Daftar user yang terdaftar dalam sistem'
         ];
 
-        $activeMenu = 'user';
+        $activeMenu = 'user'; //set menu yang sedang aktif
 
         $level = LevelModel::all();
 
@@ -93,7 +93,7 @@ class UserController extends Controller
         return DataTables::of($users)
             ->addIndexColumn() // Menambahkan kolom index / no urut (default: DT_RowIndex)
             ->addColumn('aksi', function ($user) {
-                return '
+                $btn='
                     <a href="' . url('/user/' . $user->user_id) . '" class="btn btn-info btn-sm">Detail</a>
                     <a href="' . url('/user/' . $user->user_id . '/edit') . '" class="btn btn-warning btn-sm">Edit</a>
                     <form class="d-inline-block" method="POST" action="' . url('/user/' . $user->user_id) . '">
@@ -102,8 +102,8 @@ class UserController extends Controller
                             onclick="return confirm(\'Apakah Anda yakin menghapus data ini?\');">
                             Hapus
                         </button>
-                    </form>
-                ';
+                    </form>';
+                return $btn;
             })
             ->rawColumns(['aksi']) // Menandai bahwa kolom aksi berisi HTML
             ->make(true);
@@ -129,7 +129,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'username' => 'required|string|min:3|unique:m_user, username',
+            'username' => 'required|string|min:3|unique:m_user,username',
             'nama' => 'required|string|max:100',
             'password' => 'required|min:5',
             'level_id' => 'required|integer'
@@ -169,7 +169,7 @@ class UserController extends Controller
         $level = LevelModel::all();
 
         $breadcrumb = (object)[
-            'title' => 'Edot User',
+            'title' => 'Edit User',
             'list' => ['Home', 'User', 'Edit']
         ];
 
@@ -185,7 +185,7 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'username' => 'required|string|min:3|unique:m_user, username',
+            'username' => 'required|string|min:3|unique:m_user,username',
             'nama' => 'required|string|max:100',
             'password' => 'required|min:5',
             'level_id' => 'required|integer'
