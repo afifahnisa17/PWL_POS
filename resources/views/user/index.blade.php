@@ -69,14 +69,10 @@
                 },
                 columns: [
                     {
-                        // Kolom untuk nomor urut
-                        data: null,
+                        data: "user_id",  // Menampilkan ID pengguna
                         className: "text-center",
-                        orderable: false,
-                        searchable: false,
-                        render: function(data, type, row, meta) {
-                            return meta.row + 1;
-                        }
+                        orderable: true,  // ID bisa diurutkan
+                        searchable: false
                     },
                     {
                         data: "username",
