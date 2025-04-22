@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login Pengguna</title>
+    <title>Register Pengguna</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/fontawesome-free/css/all.min.css') }}">
     <!-- icheck bootstrap -->
@@ -26,19 +25,29 @@
                 <a href="{{ url('/') }}" class="h1"><b>Admin</b>LTE</a>
             </div>
             <div class="card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
+                <p class="login-box-msg">Daftar akun baru untuk memulai sesi Anda</p>
 
-                <form action="{{ url('login') }}" method="POST" id="form-login">
+                <form action="{{ url('register') }}" method="POST" id="form-register">
                     @csrf
                     <div class="input-group mb-3">
                         <input type="text" id="username" name="username" class="form-control" placeholder="Username">
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
+                                <span class="fas fa-user"></span>
                             </div>
                         </div>
                     </div>
                     <small id="error-username" class="text-danger d-block mb-2"></small>
+
+                    <div class="input-group mb-3">
+                        <input type="text" id="nama" name="nama" class="form-control" placeholder="Nama Lengkap">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-id-card"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <small id="error-nama" class="text-danger d-block mb-2"></small>
 
                     <div class="input-group mb-3">
                         <input type="password" id="password" name="password" class="form-control" placeholder="Password">
@@ -50,21 +59,33 @@
                     </div>
                     <small id="error-password" class="text-danger d-block mb-2"></small>
 
+                    <!-- Level Pengguna Dropdown -->
+                    <div class="form-group">
+                        <label>Level Pengguna</label>
+                        <select name="level_id" id="level_id" class="form-control" required>
+                            <option value="">- Pilih Level -</option>
+                            @foreach($level as $l)
+                                <option value="{{ $l->level_id }}">{{ $l->level_nama }}</option>
+                            @endforeach
+                        </select>
+                        <small id="error-level_id" class="text-danger d-block mb-2"></small>
+                    </div>
+
                     <div class="row mb-3">
                         <div class="col-8">
                             <div class="icheck-primary">
-                                <input type="checkbox" id="remember">
-                                <label for="remember">Remember Me</label>
+                                <input type="checkbox" id="agree">
+                                <label for="agree">Saya setuju dengan syarat dan ketentuan</label>
                             </div>
                         </div>
                         <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                            <button type="submit" class="btn btn-primary btn-block">Daftar</button>
                         </div>
                     </div>
                 </form>
 
                 <p class="mb-0 text-center">
-                    Belum punya akun? <a href="{{ url('register') }}">Daftar di sini</a>
+                    Sudah punya akun? <a href="{{ url('login') }}">Login di sini</a>
                 </p>
             </div>
         </div>
@@ -86,17 +107,25 @@
         });
 
         $(document).ready(function () {
-            $("#form-login").validate({
+            $("#form-register").validate({
                 rules: {
                     username: {
                         required: true,
                         minlength: 4,
                         maxlength: 20
                     },
+                    nama: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50
+                    },
                     password: {
                         required: true,
                         minlength: 6,
                         maxlength: 20
+                    },
+                    level_id: {
+                        required: true
                     }
                 },
                 submitHandler: function (form) {
@@ -105,26 +134,27 @@
                         type: form.method,
                         data: $(form).serialize(),
                         success: function (response) {
-                            if (response.status) {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Berhasil',
-                                    text: response.message,
-                                }).then(function () {
-                                    window.location = response.redirect;
-                                });
-                            } else {
-                                $('.error-text').text('');
-                                $.each(response.msgField, function (prefix, val) {
-                                    $('#error-' + prefix).text(val[0]);
-                                });
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Terjadi Kesalahan',
-                                    text: response.message
-                                });
-                            }
+                        console.log(response); // Menambahkan log untuk memeriksa response
+                        if (response.status) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Berhasil',
+                                text: response.message,
+                            }).then(function () {
+                                window.location = response.redirect;
+                            });
+                        } else {
+                            $('.error-text').text('');
+                            $.each(response.msgField, function (prefix, val) {
+                                $('#error-' + prefix).text(val[0]);
+                            });
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Terjadi Kesalahan',
+                                text: response.message
+                            });
                         }
+                    }
                     });
                     return false;
                 },

@@ -26,6 +26,12 @@ Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('login', [AuthController::class, 'postlogin']);
 Route::get('logout', [AuthController::class, 'logout'])->middleware('auth');
 
+// Tampilkan halaman register
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+
+// Proses data register (AJAX)
+Route::post('/register', [AuthController::class, 'register']);
+
 Route::middleware(['auth'])->group(function(){
 
     Route::get('/', function () {
