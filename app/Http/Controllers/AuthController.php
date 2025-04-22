@@ -58,34 +58,41 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'username' => 'required|string|min:4|max:20|unique:users,username',
-            'nama' => 'required|string|min:3|max:50',
-            'password' => 'required|string|min:6|max:20',
-            'level_id' => 'required|integer',
-        ]);
+        if ($request->ajax() || $request->wantsJson()) {
+            $rules = [
+                'level_id'  => 'required|integer',
+                'username'  => 'required|string|min:3|unique:m_user,username',
+                'nama'      => 'required|string|max:100',
+                'password'  => 'required|min:6',
+            ];
 
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Validasi gagal!',
-                'msgField' => $validator->errors()
-            ]);
-        }
+            $validator = Validator::make($request->all(), $rules);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Validasi Gagal',
+                    'msgField' => $validator->errors(),
+                ]);
+            }
 
         // Simpan data ke database
-        UserModel::create([
-            'username' => $request->username,
-            'name' => $request->nama,
-            'password' => bcrypt($request->password),
-            'level_id' => $request->level_id,
-        ]);
+        // UserModel::create([
+        //     'username' => $request->username,
+        //     'name' => $request->nama,
+        //     'password' => bcrypt($request->password),
+        //     'level_id' => $request->level_id,
+        // ]);
+
+        UserModel::create($request->all());
 
         return response()->json([
             'status' => true,
             'message' => 'Registrasi berhasil!',
             'redirect' => url('login') // Arahkan ke login page
         ]);
+
+        }
     }
 
 }

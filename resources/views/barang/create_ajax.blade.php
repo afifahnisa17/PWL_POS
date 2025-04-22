@@ -23,26 +23,26 @@
 
                 <div class="form-group">
                     <label>Kode Barang</label>
-                    <input type="text" name="kodebarang" id="kodebarang" class="form-control" required>
-                    <small id="error-kodebarang" class="error-text form-text text-danger"></small>
+                    <input type="text" name="barang_kode" id="barang_kode" class="form-control" required>
+                    <small id="error-barang_kode" class="error-text form-text text-danger"></small>
                 </div>
 
                 <div class="form-group">
                     <label>Nama Barang</label>
-                    <input type="text" name="namabarang" id="namabarang" class="form-control" required>
-                    <small id="error-namabarang" class="error-text form-text text-danger"></small>
+                    <input type="text" name="barang_nama" id="barang_nama" class="form-control" required>
+                    <small id="error-barang_nama" class="error-text form-text text-danger"></small>
                 </div>
 
                 <div class="form-group">
                     <label>Harga Beli</label>
-                    <input type="text" name="hargabeli" id="hargabeli" class="form-control" required>
-                    <small id="error-hargabeli" class="error-text form-text text-danger"></small>
+                    <input type="text" name="harga_beli" id="harga_beli" class="form-control" required>
+                    <small id="error-harga_beli" class="error-text form-text text-danger"></small>
                 </div>
 
                 <div class="form-group">
                     <label>Harga Jual</label>
-                    <input type="text" name="hargajual" id="hargajual" class="form-control" required>
-                    <small id="error-hargajual" class="error-text form-text text-danger"></small>
+                    <input type="text" name="harga_jual" id="harga_jual" class="form-control" required>
+                    <small id="error-harga_jual" class="error-text form-text text-danger"></small>
                 </div>
             </div>
 
@@ -62,27 +62,27 @@
                     required: true,
                     number: true
                 },
-                kodebarang: {
+                barang_kode: {
                     required: true,
                     minlength: 3,
                     maxlength: 10
                 },
-                namabarang: {
+                barang_nama: {
                     required: true,
                     minlength: 3,
                     maxlength: 100
                 },
-                hargabeli: {
+                harga_beli: {
                     required: true,
                     number: true,
                     min: 1000,
                     max: 10000000
                 },
-                hargajual: {
+                harga_jual: {
                     required: true,
                     number: true,
                     min: 1000,
-                    max: 10000000    
+                    max: 10000000
                 }
             },
             submitHandler: function (form) {
