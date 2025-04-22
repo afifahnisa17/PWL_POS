@@ -356,19 +356,17 @@ class UserController extends Controller
     }
 
     public function show_ajax(string $id)
-{
-    $user = UserModel::with('level')->find($id);
+    {
+        $user = UserModel::with('level')->find($id);
 
-    if (!$user) {
-        return response()->json([
-            'status' => false,
-            'message' => 'Data user tidak ditemukan'
-        ]);
+        if (!$user) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data user tidak ditemukan'
+            ]);
+        }
+
+        return view('user.show_ajax', ['user' => $user]);
     }
-
-    return view('user.show_ajax', ['user' => $user]);
-}
-
-
 
 }

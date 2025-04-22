@@ -90,37 +90,6 @@
     });
 </script>
 
-<!-- Debugging jQuery and jQuery Validate -->
-<script>
-    $(function () {
-        console.log("✅ jQuery version:", $.fn.jquery);
-        if ($.fn.validate) {
-            console.log("✅ jQuery Validate is loaded!");
-        } else {
-            console.log("❌ jQuery Validate is NOT loaded.");
-}
-
-    });
-
-    $.ajax({
-    url: '/user/ajax',
-    method: 'POST',
-    data: yourData,
-    success: function(response) {
-        console.log(response);  // Logs the full response to the console.
-        if (response.status) {
-            console.log("Success")
-        } else {
-            console.log("Error")
-        }
-    },
-    error: function(xhr, status, error) {
-        console.error("AJAX Error: " + status + ": " + error);
-    }
-});
-
-</script>
-
 @stack('js')
 </body>
 </html>

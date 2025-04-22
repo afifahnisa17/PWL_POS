@@ -32,11 +32,11 @@
                     </tr>
                     <tr>
                         <th>Harga Beli</th>
-                        <td>{{ number_format($barang->harga_beli, 0, ',', '.') }}</td>
+                        <td>{{ $barang->harga_beli }}</td>
                     </tr>
                     <tr>
                         <th>Harga Jual</th>
-                        <td>{{ number_format($barang->harga_jual, 0, ',', '.') }}</td>
+                        <td>{{ $barang->harga_jual }}</td>
                     </tr>
                 </table>
             @endif
