@@ -73,9 +73,18 @@
                     <p>Supplier</p>
                 </a>
             </li>
+
         </ul>
     </nav>
     <!-- /.sidebar-menu -->
+    <form action="{{ url('logout') }}" method="GET" style="position: absolute; bottom: 10px; width: 100%; padding: 10px;">
+        @csrf
+        <button type="submit" class="nav-link text-white" style="background: none; border: none; padding: 0; text-align: center;">
+            <i class="nav-icon fas fa-sign-out-alt"></i>
+            <p>Logout</p>
+        </button>
+    </form>
+
 </div>
 
 
