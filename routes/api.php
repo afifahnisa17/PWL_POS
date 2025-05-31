@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\LevelController;
+use App\Http\Controllers\Api\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +33,10 @@ Route::post('/level', [LevelController::class, 'store']);
 Route::get('/level/{level}', [LevelController::class, 'show']);
 Route::put('/level/{level}', [LevelController::class, 'update']);
 Route::delete('/level/{level}', [LevelController::class, 'destroy']);
+
+//User Route
+Route::get('/user', [UserController::class, 'index']);
+Route::post('/user', [UserController::class, 'store']);
+Route::get('/user/{user}', [UserController::class, 'show']);
+Route::put('/user/{user}', [UserController::class, 'update']);
+Route::delete('/user/{user}', [UserController::class, 'destroy']);
